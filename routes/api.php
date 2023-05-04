@@ -32,7 +32,7 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
         Route::post('/forget-password-verification', 'Auth\ForgotPasswordController@checkCode');
 
         /**Password Reset */
-        Route::post('/password-reset', 'Auth\ForgotPasswordController@passwordReset');
+        Route::post('/password-resets', 'Auth\ForgotPasswordController@passwordReset');
 
     /**
      * Extra routes

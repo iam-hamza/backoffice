@@ -23,22 +23,11 @@ class UsersController extends AppBaseController
      */
     public function index()
     {
-        // return User::with('roles')->get();
       return  UserResource::collection(User::with('roles')->get());
        
     }
 
-    /**
-     * Show the form for creating new User.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $roles = Role::get()->pluck('name', 'name');
-
-        return view('admin.users.create', compact('roles'));
-    }
+   
 
     /**
      * Store a newly created User in storage.

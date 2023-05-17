@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\StoreUsersRequest;
 use App\Http\Requests\Admin\UpdateUsersRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Requests\Admin\UpdateUserRequest;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\PermissionRegistrar;
 use App\Http\Resources\UserResource;
@@ -37,26 +38,17 @@ class UsersController extends AppBaseController
      */
     public function store(StoreUsersRequest $request)
     {
-        $user = User::create($request->all());
+        $input = $request->validated();
+        $input['password'] = bcrypt($request->password);
+        $user = User::create($input);
         $roles = $request->input('roles') ? $request->input('roles') : [];
         $user->assignRole($roles);
     
-        return redirect()->route('admin.users.index');
+        return $this->sendSuccess('Created');
     }
 
 
-    /**
-     * Show the form for editing User.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(User $user)
-    {
-        $roles = Role::get()->pluck('name', 'name');
 
-        return view('admin.users.edit', compact('user', 'roles'));
-    }
 
     /**
      * Update User in storage.
@@ -65,23 +57,16 @@ class UsersController extends AppBaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        
-        User::whereId($request->id)->update([
-            'is_active'=>$request->is_active,
-        ]);
-
+        $input = $request->validated();
+        $input['password'] = bcrypt($request->password);
+        $user->update($input);
+        $user->syncRoles($request->roles);
         return $this->sendSuccess('Updated ');
 
     }
 
-    public function show(User $user)
-    {
-        return $user->load('roles');
-
-        return view('admin.users.show', compact('user'));
-    }
 
     /**
      * Remove User from storage.
@@ -93,7 +78,7 @@ class UsersController extends AppBaseController
     {
         $user->delete();
 
-        return redirect()->route('admin.users.index');
+        return $this->sendSuccess('Deleted');
     }
 
     /**
@@ -108,39 +93,6 @@ class UsersController extends AppBaseController
         return response()->noContent();
     }
 
-    /**
-     * List of Customer
-     * 
-     * @return response json customer
-     */
-    public function allCustomer(){
-        $user =User::whereHas(
-            'roles', function($q){
-                $q->where('name', 'customer');
-            }
-        )->get();
-        return response()->json([
-            'customer'=>$user,
-        ]);
-    }
-     /**
-     * List of Artist
-     * 
-     * @return response json customer
-     */
-    public function allArtist()
-    {
-        $user =User::whereHas(
-            'roles', function($q){
-                $q->where('name', 'artist');
-            }
-        )
-        ->with('artist')
-        ->get();
-        
-        return response()->json([
-            'artist'=>$user,
-        ]);
-    }
+  
 
 }

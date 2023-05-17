@@ -49,22 +49,7 @@ class RolesController extends AppBaseController
     }
 
 
-    /**
-     * Show the form for editing Role.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        $role=Role::whereId($id)->with('permissions')->get();
-        $permissions = Permission::get()->pluck('name', 'name');
-        return response()->json([
-            'role'=>$role,
-            'permissions'=>$permissions
-        ]);
-        // return view('admin.roles.edit', compact('role', 'permissions'));
-    }
+
 
     /**
      * Update Role in storage.
@@ -73,11 +58,11 @@ class RolesController extends AppBaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request,Role $role)
+    public function update(UpdateRolesRequest $request,Role $role)
     {
         try{
         
-            $role->update($request->except('permission'));
+            // $role->update($request->except('permission'));
             $permissions = $request->input('permission') ? $request->input('permission') : [];
             $role->syncPermissions(json_decode($permissions));
             

@@ -1,7 +1,7 @@
 <?php
 
-use Admin\UsersController;
-use App\User;
+use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\BannerController;
 
 Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], function () {
 
@@ -46,12 +46,28 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
     Route::group(['middleware' => ['auth:api','role:administrator|user']], function () {
         // /**Roles routes for roles and permission */ 
         Route::group(['prefix' => '/roles'], function () {
-            Route::get('/', 'Admin\RolesController@index')->middleware('permission:users_manage');
-            Route::post('/', 'Admin\RolesController@store')->middleware('cors');
+            Route::get('/', 'Admin\RolesController@index');
+            Route::post('/', 'Admin\RolesController@store');
             Route::get('/{id}', 'Admin\RolesController@edit');
             Route::post('/{role}', 'Admin\RolesController@update');
         });
-        Route::apiResource('users', UsersController::class);
+
+        Route::group(['prefix' => '/users'], function () {
+            Route::get('/', [UsersController::class, 'index']);
+            Route::post('/', [UsersController::class, 'store']);
+            Route::get('/{user}', [UsersController::class, 'show']);
+            Route::post('/{user}', [UsersController::class, 'update']);
+            Route::delete('/{user}', [UsersController::class, 'destroy']);
+        });
+
+        Route::group(['prefix' => '/banners'], function () {
+            Route::get('/', [BannerController::class, 'index']);
+            Route::post('/', [BannerController::class, 'store']);
+            Route::post('/{banner}', [BannerController::class, 'update']);
+            Route::delete('/{banner}', [BannerController::class, 'destroy']);
+        });
+
+
     });
 
 

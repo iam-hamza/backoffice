@@ -7,9 +7,13 @@ Use Throwable;
 
 
 use Illuminate\Auth\AuthenticationException;
-use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Validation\ValidationException;
+use Symfony\Component\Finder\Exception\AccessDeniedException;
+use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Symfony\Component\HttpKernel\Exception\TooManyRequestsHttpException;
 use Spatie\Permission\Exceptions\UnauthorizedException as unauthenticated;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+
 class Handler extends ExceptionHandler
 {
     /**
@@ -63,6 +67,22 @@ class Handler extends ExceptionHandler
             );
             return response($content)->setStatusCode($code);
         }
+
+        /** 
+         * Exception for user permission
+         *   
+         * $message  to store and return message 'user does not have permisson '
+         **/
+        if ($exception instanceof AccessDeniedHttpException) {
+            $message='User does not have right permission';
+            $code=401;
+            $content = array(
+                 'success' => false,
+                 'data' => 'something went wrong.',
+                 'message' => $message
+             );
+             return response($content)->setStatusCode($code);
+         }
 
         /**
          * Exception for form validation

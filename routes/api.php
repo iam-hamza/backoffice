@@ -60,7 +60,7 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
             'banners.update',
             'banners.destroy',
             'reseller.index',
-        ];);
+        ]);
        
     });
  

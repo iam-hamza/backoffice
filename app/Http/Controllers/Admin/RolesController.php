@@ -72,11 +72,15 @@ class RolesController extends AppBaseController
        }
     }
 
-    public function show(Role $role)
+    public function show($role)
     {
-
-        $role->load('permissions');
-
+        $roles = Role::where('id',$role)->with('permissions')->get();
+        $permissions = Permission::get('name');
+        return response()->json([
+            'roles'=>$roles,
+            'permission' => $permissions
+        ]);
+       
         return view('admin.roles.show', compact('role'));
     }
 

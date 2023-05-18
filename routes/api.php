@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\ResellerProductController;
 
 Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], function () {
 
@@ -48,7 +49,7 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
         Route::group(['prefix' => '/roles'], function () {
             Route::get('/', 'Admin\RolesController@index');
             Route::post('/', 'Admin\RolesController@store');
-            Route::get('/{id}', 'Admin\RolesController@edit');
+            Route::get('/{id}', 'Admin\RolesController@show');
             Route::post('/{role}', 'Admin\RolesController@update');
         });
 
@@ -65,6 +66,10 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
             Route::post('/', [BannerController::class, 'store']);
             Route::post('/{banner}', [BannerController::class, 'update']);
             Route::delete('/{banner}', [BannerController::class, 'destroy']);
+        });
+
+        Route::group(['prefix' => '/reseller'], function () {
+            Route::get('/', [ResellerProductController::class, 'index']);
         });
 
 

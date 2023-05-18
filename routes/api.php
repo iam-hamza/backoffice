@@ -68,7 +68,7 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
     Route::group(['middleware' => ['auth:api','role:administrator|user']], function () {
         // /**Roles routes for roles and permission */ 
         Route::group(['prefix' => '/roles'], function () {
-            Route::get('/', 'Admin\RolesController@index')->middleware("can:roles.index");
+            Route::get('/', 'Admin\RolesController@index');
             Route::post('/', 'Admin\RolesController@store')->middleware("can:roles.store");
             Route::get('/{id}', 'Admin\RolesController@show')->middleware("can:roles.show");
             Route::post('/{role}', 'Admin\RolesController@update')->middleware("can:roles.update");

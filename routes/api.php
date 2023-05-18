@@ -45,7 +45,22 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
     Route::post('/login', 'Auth\LoginController@login');
     Route::post('/test', function(){
         $role = Role::find(1);
-        $role->syncPermissions(['edit articles', 'delete articles']);
+        $role->syncPermissions([
+            'roles.index',
+            'roles.store',
+            'roles.show',
+            'roles.update',
+            'users.index',
+            'users.store',
+            'users.show',
+            'users.update',
+            'users.destroy',
+            'banners.index',
+            'banners.store',
+            'banners.update',
+            'banners.destroy',
+            'reseller.index',
+        ];);
        
     });
  

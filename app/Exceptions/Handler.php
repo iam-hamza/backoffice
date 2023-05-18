@@ -74,7 +74,7 @@ class Handler extends ExceptionHandler
          * $message  to store and return message 'user does not have permisson '
          **/
         if ($exception instanceof AccessDeniedHttpException) {
-            $message='User does not have right permission';
+            $message='User does not  right permission';
             $code=401;
             $content = array(
                  'success' => false,

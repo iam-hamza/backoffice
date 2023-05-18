@@ -47,7 +47,6 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
         $role = Role::find(1);
         $role->syncPermissions([
             'roles.index',
-            'roles.store',
             'roles.show',
             'roles.update',
             'users.index',

@@ -70,7 +70,7 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
         Route::group(['prefix' => '/roles'], function () {
             Route::get('/', 'Admin\RolesController@index');
             Route::post('/', 'Admin\RolesController@store')->middleware("permission:roles.store");
-            Route::get('/{id}', 'Admin\RolesController@show')->middleware("permission:roles.show");
+            Route::get('/{id}', 'Admin\RolesController@show')->middleware("permission:roles_show");
             Route::post('/{role}', 'Admin\RolesController@update')->middleware("permission:roles.update");
         });
         

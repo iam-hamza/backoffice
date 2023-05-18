@@ -58,7 +58,7 @@ class RolesController extends AppBaseController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateRolesRequest $request,Role $role)
+    public function update(Request $request,Role $role)
     {
         try{
         

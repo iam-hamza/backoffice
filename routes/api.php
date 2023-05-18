@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ResellerProductController;
+use Spatie\Permission\Models\Role;
 
 Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], function () {
 
@@ -42,7 +43,13 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
 
     /**Login client and Artist */
     Route::post('/login', 'Auth\LoginController@login');
+    Route::post('/test', function(){
+        $role = Role::find(1);
+        $role->syncPermissions(['edit articles', 'delete articles']);
+       
+    });
  
+
 
     Route::group(['middleware' => ['auth:api','role:administrator|user']], function () {
         // /**Roles routes for roles and permission */ 

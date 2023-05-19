@@ -24,8 +24,10 @@ class UsersController extends AppBaseController
      */
     public function index()
     {
-      return  UserResource::collection(User::with('roles')->get());
-       
+      return  [
+        'role'=>Role::get('name'),
+      UserResource::collection(User::with('roles')->get()),
+      ];
     }
 
    

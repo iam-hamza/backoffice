@@ -62,7 +62,10 @@ class UsersController extends AppBaseController
     public function update(UpdateUserRequest $request, User $user)
     {
         $input = $request->validated();
-        $input['password'] = bcrypt($request->password);
+        if($request->has('password')){
+            $input['password'] = bcrypt($request->password);
+        }
+       
         $user->update($input);
         $user->syncRoles($request->roles);
         return $this->sendSuccess('Updated ');

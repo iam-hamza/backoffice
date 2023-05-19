@@ -26,7 +26,7 @@ class UsersController extends AppBaseController
     {
       return  [
         'role'=>Role::get('name'),
-      UserResource::collection(User::with('roles')->get()),
+      'users'=>UserResource::collection(User::with('roles')->get()),
       ];
     }
 

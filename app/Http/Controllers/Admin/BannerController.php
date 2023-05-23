@@ -16,7 +16,9 @@ class BannerController extends AppBaseController
     {
         $banners = Banner::where('banner_type',$request->type)->first();
 
-        return $banners;
+        return response()->json([
+            'banners' => $banners,
+        ]);
     }
 
     public function store(CreateBannerRequest $request)

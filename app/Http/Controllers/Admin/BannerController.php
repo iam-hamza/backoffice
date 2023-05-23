@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateBannerRequest;
 use App\Http\Requests\UpdateBannerRequest;
 use App\Http\Controllers\AppBaseController;
+use App\Http\Resources\BannersResource;
 
 class BannerController extends AppBaseController
 {
@@ -16,9 +17,7 @@ class BannerController extends AppBaseController
     {
         $banners = Banner::where('banner_type',$request->type)->first();
 
-        return response()->json([
-            'banners' => $banners,
-        ]);
+       return BannersResource::make($banners);
     }
 
     public function store(CreateBannerRequest $request)

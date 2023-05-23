@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\UsersController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\ResellerProductController;
 use Spatie\Permission\Models\Role;
@@ -91,6 +92,10 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
         
         Route::group(['prefix' => '/reseller'], function () {
             Route::get('/', [ResellerProductController::class, 'index'])->middleware("permission:reseller.index");
+        });
+
+        Route::group(['prefix' => '/profile'], function () {
+            Route::get('/', [ProfileController::class, 'index']);
         });
 
 

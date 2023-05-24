@@ -15,4 +15,11 @@ class ResellerProductController extends Controller
             $q->where('website',$request->website);
         })->paginate($request->per_page)->withQueryString();
     }
+
+
+    public function categories(Request $request)
+    {
+        
+        return ResellerProduct::where('status',0)->get('categories');
+    }
 }

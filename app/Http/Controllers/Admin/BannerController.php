@@ -16,7 +16,7 @@ class BannerController extends AppBaseController
     public function index(Request $request)
     {
         $banners = Banner::where('banner_type',$request->type)->first();
-
+       
        return BannersResource::make($banners);
     }
 

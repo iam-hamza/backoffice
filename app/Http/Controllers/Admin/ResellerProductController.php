@@ -20,6 +20,6 @@ class ResellerProductController extends Controller
     public function categories(Request $request)
     {
         
-        return ResellerProduct::where('status',0)->get('categories');
+        return ResellerProduct::distinct('categories')->pluck('categories')->toArray();
     }
 }

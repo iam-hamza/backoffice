@@ -92,7 +92,7 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
         
         Route::group(['prefix' => '/reseller'], function () {
             Route::get('/', [ResellerProductController::class, 'index'])->middleware("permission:reseller.index");
-            Route::get('/', [ResellerProductController::class, 'categories']);
+            Route::get('/category', [ResellerProductController::class, 'categories']);
 
         });
 

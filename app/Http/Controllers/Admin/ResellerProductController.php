@@ -26,6 +26,6 @@ class ResellerProductController extends Controller
     public function categories(Request $request)
     {
         
-        return ResellerCategory::get();
+        return ResellerCategory::where('website',$request->website)->get();
     }
 }

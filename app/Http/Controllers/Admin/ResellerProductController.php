@@ -19,6 +19,9 @@ class ResellerProductController extends Controller
         ->when($request->has('category'),function($q) use($request){
             $q->where('categories', 'LIKE', '%' . $request->category . '%');
         })
+        ->when($request->has('name'),function($q) use($request){
+            $q->where('name', 'LIKE', '%' . $request->name . '%');
+        })
         ->paginate($request->per_page)->withQueryString();
     }
 

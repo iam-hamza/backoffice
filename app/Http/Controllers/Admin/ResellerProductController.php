@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\AppBaseController;
 use App\Http\Controllers\Controller;
 use App\Models\ResellerCategory;
 use App\Models\ResellerProduct;
 use Illuminate\Http\Request;
 
-class ResellerProductController extends Controller
+class ResellerProductController extends AppBaseController
 {
     public function index(Request $request)
     {
@@ -30,5 +31,15 @@ class ResellerProductController extends Controller
     {
         
         return ResellerCategory::where('website',$request->website)->get();
+    }
+
+    public function addToProduct(Request $request)
+    {
+        
+        ResellerProduct::whereId($request->id)->update([
+            'status' => 1,
+        ]);
+
+        return $this->sendSuccess('Added');
     }
 }

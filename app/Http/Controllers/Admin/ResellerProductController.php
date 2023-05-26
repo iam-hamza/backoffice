@@ -13,8 +13,8 @@ class ResellerProductController extends AppBaseController
     public function index(Request $request)
     {
         
-        return ResellerProduct::where('status',0)
-        ->when($request->has('website'),function($q) use($request){
+        return ResellerProduct::
+        when($request->has('website'),function($q) use($request){
             $q->where('website',$request->website);
         })
         ->when($request->has('category'),function($q) use($request){

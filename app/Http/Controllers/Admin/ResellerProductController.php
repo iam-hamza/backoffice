@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AppBaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Resources\ResellerProducrReseource;
 use App\Models\ResellerCategory;
 use App\Models\ResellerProduct;
 use Illuminate\Http\Request;
@@ -13,7 +14,7 @@ class ResellerProductController extends AppBaseController
     public function index(Request $request)
     {
         
-        return ResellerProduct::
+        $product = ResellerProduct::
         when($request->has('website'),function($q) use($request){
             $q->where('website',$request->website);
         })
@@ -24,6 +25,8 @@ class ResellerProductController extends AppBaseController
             $q->where('name', 'LIKE', '%' . $request->name . '%');
         })
         ->paginate($request->per_page)->withQueryString();
+
+        return ResellerProducrReseource::collection($product);
     }
 
 

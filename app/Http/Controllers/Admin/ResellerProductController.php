@@ -25,7 +25,7 @@ class ResellerProductController extends AppBaseController
             $q->where('name', 'LIKE', '%' . $request->name . '%');
         })
         ->paginate($request->per_page)->withQueryString();
-
+        
         return new ResellerProducrReseource($product);
     }
 

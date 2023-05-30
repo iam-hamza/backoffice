@@ -2,9 +2,9 @@
 
 namespace App\Http\Resources;
 
-use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Http\Resources\Json\ResourceCollection;
 
-class ResellerProducrReseource extends JsonResource
+class ResellerProducrReseource extends ResourceCollection
 {
     public function toArray($request)
     {
@@ -15,13 +15,13 @@ class ResellerProducrReseource extends JsonResource
                     'categories' => $item->categories,
                     'description' => $item->description,
                     'brand' => $item->brand,
-                    'displayImages' => json_decode($item->displayImages),
+                    'displayImages' => json_decode(str_replace("'", '"',$item->displayImages)),
                     'hasStock' => $item->hasStock,
                     'stock' => $item->stock,
                     'price' => $item->price,
                     'name' => $item->name,
-                    'sizes' => json_decode($item->sizes),
-                    'sku' => json_decode($item->sku),
+                    'sizes' => $item->sizes,
+                    'sku' => $item->sku,
                     'slug' => $item->slug,
                     'currency' => $item->currency,
                     'status' => $item->status,

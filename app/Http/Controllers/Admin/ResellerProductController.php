@@ -26,7 +26,7 @@ class ResellerProductController extends AppBaseController
         })
         ->paginate($request->per_page)->withQueryString();
 
-        return ResellerProducrReseource::collection($product);
+        return new ResellerProducrReseource($product);
     }
 
 

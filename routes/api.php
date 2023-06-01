@@ -95,7 +95,7 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
             Route::get('/', [ResellerProductController::class, 'index'])->middleware("permission:reseller.index");
             Route::get('/category', [ResellerProductController::class, 'categories']);
             Route::get('/show/{id}', [ResellerProductController::class, 'show']);
-           
+            Route::get('/website', [ResellerProductController::class, 'website']);
             Route::post('/add-to-product', [ResellerProductController::class, 'addToProduct']);
 
 

@@ -24,6 +24,7 @@ class ResellerProductController extends AppBaseController
         })
         ->when($request->has('name'),function($q) use($request){
             $q->where('name', 'LIKE', '%' . $request->name . '%');
+            $q->orWhere('sku',$request->name);
         })
         ->paginate($request->per_page)->withQueryString();
         
@@ -54,5 +55,11 @@ class ResellerProductController extends AppBaseController
         ]);
 
         return $this->sendSuccess('Added');
+    }
+
+    public function website(Request $request)
+    {
+        return ResellerProduct::distinct()->pluck('website');
+       
     }
 }

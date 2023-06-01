@@ -12,7 +12,7 @@ class ResellerProducrReseource extends ResourceCollection
             'data' => $this->collection->map(function ($item) {
                 return [
                     'id' => $item->id,
-                    'categories' => json_decode(str_replace("'", '"',$item->categories)),
+                    'categories' => $item->categories,
                     'description' => $item->description,
                     'brand' => $item->brand,
                     'displayImages' => json_decode(str_replace("'", '"',$item->displayImages)),
@@ -29,12 +29,12 @@ class ResellerProducrReseource extends ResourceCollection
                 ];
             }),
             'pagination' => [
-                'total' => $this->total(),
-                'per_page' => $this->perPage(),
-                'current_page' => $this->currentPage(),
-                'last_page' => $this->lastPage(),
-                'from' => $this->firstItem(),
-                'to' => $this->lastItem(),
+                'total' => @$this->total(),
+                'per_page' => @$this->perPage(),
+                'current_page' => @$this->currentPage(),
+                'last_page' => @$this->lastPage(),
+                'from' => @$this->firstItem(),
+                'to' => @$this->lastItem(),
             ],
         ];
     }

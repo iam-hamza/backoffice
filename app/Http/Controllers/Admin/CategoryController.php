@@ -18,6 +18,7 @@ class CategoryController extends AppBaseController
      */
     public function index(Request $request)
     {
+      
         // try{
             $categories = Category::get();
 

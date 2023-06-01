@@ -32,7 +32,7 @@ class ResellerProductController extends AppBaseController
 
     public function show($id)
     {
-        
+       
         $product = ResellerProduct::
                     whereId($id)->get();
         
@@ -42,7 +42,7 @@ class ResellerProductController extends AppBaseController
 
     public function categories(Request $request)
     {
-        
+       
         return ResellerCategory::where('website',$request->website)->get();
     }
 

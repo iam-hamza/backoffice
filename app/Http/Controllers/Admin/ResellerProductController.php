@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\AppBaseController;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ResellerProducrReseource;
+use App\Http\Resources\SingleProductResource;
 use App\Models\ResellerCategory;
 use App\Models\ResellerProduct;
 use Illuminate\Http\Request;
@@ -35,7 +36,7 @@ class ResellerProductController extends AppBaseController
         $product = ResellerProduct::
                     whereId($id)->get();
         
-        return new ResellerProducrReseource($product);
+        return SingleProductResource::collection($product);
     }
 
 

@@ -28,6 +28,7 @@ class ResellerProducrReseource extends ResourceCollection
                     'website' => $item->website,
                 ];
             }),
+            
             'pagination' => [
                 'total' => @$this->total(),
                 'per_page' => @$this->perPage(),

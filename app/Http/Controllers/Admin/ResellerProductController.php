@@ -24,7 +24,7 @@ class ResellerProductController extends AppBaseController
         })
         ->when($request->has('name'),function($q) use($request){
             $q->where('name', 'LIKE', '%' . $request->name . '%');
-            $q->orWhere('sku',$request->name);
+            $q->orWhere('sku', 'LIKE', '%' . $request->name . '%');
         })
         ->paginate($request->per_page)->withQueryString();
         

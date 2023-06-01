@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\BannerController;
+use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\ResellerProductController;
 use Spatie\Permission\Models\Role;
 
@@ -95,6 +96,15 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
             Route::get('/{id}', [ResellerProductController::class, 'show']);
             Route::get('/category', [ResellerProductController::class, 'categories']);
             Route::post('/add-to-product', [ResellerProductController::class, 'addToProduct']);
+
+
+        });
+
+        Route::group(['prefix' => '/category'], function () {
+            Route::get('/', [CategoryController::class, 'index']);
+            // Route::get('/{id}', [ResellerProductController::class, 'show']);
+            // Route::get('/category', [ResellerProductController::class, 'categories']);
+            // Route::post('/add-to-product', [ResellerProductController::class, 'addToProduct']);
 
 
         });

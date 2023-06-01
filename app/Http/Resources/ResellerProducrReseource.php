@@ -12,7 +12,7 @@ class ResellerProducrReseource extends ResourceCollection
             'data' => $this->collection->map(function ($item) {
                 return [
                     'id' => $item->id,
-                    'categories' => $item->categories,
+                    'categories' => json_decode(str_replace("'", '"',$item->categories)),
                     'description' => $item->description,
                     'brand' => $item->brand,
                     'displayImages' => json_decode(str_replace("'", '"',$item->displayImages)),

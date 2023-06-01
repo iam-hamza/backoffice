@@ -35,7 +35,7 @@ class ResellerProductController extends AppBaseController
         $product = ResellerProduct::
                     whereId($id)->get();
         
-        return response()->json($product);
+        return new ResellerProducrReseource($product);
     }
 
 

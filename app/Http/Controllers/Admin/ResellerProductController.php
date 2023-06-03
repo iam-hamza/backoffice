@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\AppBaseController;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\AddResellerProductsToProducts;
 use App\Http\Resources\ResellerProducrReseource;
 use App\Http\Resources\SingleProductResource;
+use App\Models\Product;
+use App\Models\ProductImage;
 use App\Models\ResellerCategory;
 use App\Models\ResellerProduct;
 use Illuminate\Http\Request;
@@ -47,9 +50,17 @@ class ResellerProductController extends AppBaseController
         return ResellerCategory::where('website',$request->website)->get();
     }
 
-    public function addToProduct(Request $request)
+    public function addToProduct(AddResellerProductsToProducts $request)
     {
-        
+      
+        $product = Product::create($request->validated());
+        foreach (json_decode($request->product_images) as $image) {
+            ProductImage::create([
+                'product_id' => $product->id,
+                'image' => $image
+            ]);
+        }
+
         ResellerProduct::whereId($request->id)->update([
             'status' => 1,
         ]);

@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\AppBaseController;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
-class ProductController extends Controller
+class ProductController extends AppBaseController
 {
     public function index()
     {
@@ -61,5 +62,14 @@ class ProductController extends Controller
 
         // Return a success response or redirect
         return response()->json(['message' => 'Data inserted successfully'], 201);
+    }
+
+    public function updateStatus($id,$status)
+    {
+        Product::whereId($id)->update([
+            'status'=>$status
+        ]);
+
+        return $this->sendSuccess('Updated');
     }
 }

@@ -117,6 +117,8 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
             Route::post('/', [ProductController::class, 'store']);
             Route::post('/{id}', [ProductController::class, 'update']);
             Route::delete('/{id}', [ProductController::class, 'destroy']);
+            Route::get('update-status/{id}/{status}', [ProductController::class, 'updateStatus']);
+
 
         });
 

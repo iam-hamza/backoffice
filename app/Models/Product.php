@@ -25,6 +25,12 @@ class Product extends Model
         'resaler_price',
         'stock',
         'category_id',
+        'status'
+    ];
+
+    const status=[
+        1=>'Live',
+        2=>'Removed',
     ];
 
  /**

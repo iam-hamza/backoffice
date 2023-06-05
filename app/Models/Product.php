@@ -26,5 +26,15 @@ class Product extends Model
         'stock',
         'category_id',
     ];
+
+ /**
+     * Date of the order event 
+     * 
+     * hasMany
+     */
+    public function images() 
+    {
+        return $this->hasMany(ProductImage::class);
+    }
     
 }

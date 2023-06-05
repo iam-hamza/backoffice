@@ -6,9 +6,11 @@ use App\Http\Controllers\AppBaseController;
 use App\Http\Controllers\Controller;
 use Throwable;
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Http\Client\HttpClientException;
+use Illuminate\Support\Facades\Storage;
 
 
 class CategoryController extends AppBaseController
@@ -18,8 +20,6 @@ class CategoryController extends AppBaseController
      */
     public function index(Request $request)
     {
-      
-        // try{
             $categories = Category::get();
 
 
@@ -28,12 +28,77 @@ class CategoryController extends AppBaseController
                 Response::HTTP_OK
             );
           
-        // }catch(Throwable $exception){
-        //     if ($exception instanceof HttpClientException) {
-        //         return $this->sendError($exception->getMessage(), $exception->getCode());
-        //     }
-        //     return $this->sendError('Some Thing Wrong' ,Response::HTTP_INTERNAL_SERVER_ERROR);
-        // }
+        
+    }
+    /**
+     * Display a single of the resource.
+     */
+    public function show(Category $category)
+    {
+        
+            return $category;
+        
+    }
+
+    public function store(Request $request)
+    {
+        // Validate the form data
+        $validatedData = $request->validate([
+            'name' => 'required|string|unique:categories',
+            'image' => 'image|max:2048',
+            'description' => 'nullable|string',
+        ]);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            $path = Storage::disk('s3')->put('category', $request->image);
+            $validatedData['image'] = Storage::disk('s3')->url($path);   
+        }
+    
+        // Create a new instance of your model with the validated data
+        $product = Category::create($validatedData);
+
+
+        // Return a success response or redirect
+        return $this->sendSuccess('Added');
+    }
+
+    public function update(Request $request, $id)
+    {
+        // Validate the form data
+        $validatedData = $request->validate([
+            'name' => 'required|string|unique:categories,name,' . $id,
+            'image' => 'nullable|image|max:2048',
+            'description' => 'nullable|string',
+        ]);
+
+        // Find the product by ID
+        $category = Category::findOrFail($id);
+
+        // Handle image upload
+        if ($request->hasFile('image')) {
+            
+                $path = Storage::disk('s3')->put('category', $request->image);
+                $validatedData['image'] = Storage::disk('s3')->url($path);   
+        }
+
+        // Update the category with the validated data
+        $category->update($validatedData);
+
+        // Return a success response or redirect
+        return $this->sendSuccess('Updated');
+    }
+
+    public function destroy($id)
+    {
+        if(Product::where('category_id',$id)->exists()){
+            return $this->sendError('Category in Use');
+        }
+        $category = Category::findOrFail($id);
+        $category->delete();
+
+        return $this->sendSuccess('Deleted');
+
     }
 
 }

@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ResellerProductController;
 use Spatie\Permission\Models\Role;
 
@@ -103,10 +104,19 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
 
         Route::group(['prefix' => '/category'], function () {
             Route::get('/', [CategoryController::class, 'index']);
-            // Route::get('/{id}', [ResellerProductController::class, 'show']);
-            // Route::get('/category', [ResellerProductController::class, 'categories']);
-            // Route::post('/add-to-product', [ResellerProductController::class, 'addToProduct']);
+            Route::get('/{category}', [CategoryController::class, 'show']);
+            Route::post('/', [CategoryController::class, 'store']);
+            Route::post('/{id}', [CategoryController::class, 'update']);
+            Route::delete('/{id}', [CategoryController::class, 'destroy']);
 
+        });
+
+        Route::group(['prefix' => '/product'], function () {
+            Route::get('/', [ProductController::class, 'index']);
+            Route::get('/{category}', [ProductController::class, 'show']);
+            Route::post('/', [ProductController::class, 'store']);
+            Route::post('/{id}', [ProductController::class, 'update']);
+            Route::delete('/{id}', [ProductController::class, 'destroy']);
 
         });
 

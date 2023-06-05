@@ -14,7 +14,7 @@ class UpdateProductsAddStatusField extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->text('status')->default(1);
+            $table->integer('status')->default(1);
         });
     }
 

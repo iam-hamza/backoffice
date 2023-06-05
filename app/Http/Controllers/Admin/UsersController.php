@@ -81,7 +81,7 @@ class UsersController extends AppBaseController
      */
     public function destroy(User $user)
     {
-        $user->delete();
+        // $user->delete();
 
         return $this->sendSuccess('Deleted');
     }

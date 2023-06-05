@@ -56,11 +56,11 @@ class CategoryController extends AppBaseController
         }
     
         // Create a new instance of your model with the validated data
-        $product = Category::create($validatedData);
+        $category = Category::create($validatedData);
 
 
         // Return a success response or redirect
-        return $this->sendSuccess('Added');
+        return $category;
     }
 
     public function update(Request $request, $id)
@@ -86,7 +86,7 @@ class CategoryController extends AppBaseController
         $category->update($validatedData);
 
         // Return a success response or redirect
-        return $this->sendSuccess('Updated');
+        return Category::findOrFail($id);
     }
 
     public function destroy($id)

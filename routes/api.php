@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\UsersController;
 use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\BannerController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\ImageController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ResellerProductController;
 use Spatie\Permission\Models\Role;
@@ -124,6 +125,10 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
 
         Route::group(['prefix' => '/profile'], function () {
             Route::get('/', [ProfileController::class, 'index']);
+        });
+
+        Route::group(['prefix' => '/image'], function () {
+            Route::post('/', [ImageController::class, 'store']);
         });
 
 

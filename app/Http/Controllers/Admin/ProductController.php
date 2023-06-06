@@ -13,7 +13,7 @@ class ProductController extends AppBaseController
 {
     public function index()
     {
-        return Product::all();
+        return Product::with('images')->get();
     }
 
     public function store(Request $request)
@@ -61,7 +61,55 @@ class ProductController extends AppBaseController
         // Optionally, you can perform additional actions or return a response here
 
         // Return a success response or redirect
-        return response()->json(['message' => 'Data inserted successfully'], 201);
+        return $product;
+    }
+
+
+    public function update(Request $request,$id)
+    {
+        $validatedData = $request->validate([
+            'reseller_product_id' => 'nullable|numeric',
+            'name' => 'required|string',
+            'description' => 'nullable|string',
+            'brand' => 'nullable|string',
+            'sizes' => 'nullable|string',
+            'sku' => 'nullable|string',
+            'product_tag' => 'nullable|string',
+            'slug' => 'nullable|string',
+            'hasStock' => 'required|boolean',
+            'profit_margin' => 'required|numeric',
+            'price' => 'required|numeric',
+            'discount' => 'nullable|numeric',
+            'discount_price' => 'nullable|numeric',
+            'resaler_price' => 'nullable|numeric',
+            'stock' => 'required|integer',
+            'category_id' => 'nullable|numeric',
+        ]);
+       
+        
+
+        // Create a new instance of the Product model with the validated data
+        $product = Product::findOrFail($id);
+        $product->update($validatedData);
+
+        $product->images()->delete();
+        // Attach the image paths to the product
+        $images = json_decode($request->images);
+       
+        $product->images()->createMany(
+            array_map(function ($images) {
+                return ['image' => $images];
+            }, $images)
+        );
+
+        // Return a success response or redirect
+        return $this->show($id);
+    }
+
+    public function show($id)
+    {
+        return Product::whereId($id)->with('images')->first();
+
     }
 
     public function updateStatus($id,$status)

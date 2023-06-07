@@ -35,14 +35,11 @@ class ProductController extends AppBaseController
             'resaler_price' => 'nullable|numeric',
             'stock' => 'required|integer',
             'category_id' => 'nullable|numeric',
-            'images' => 'nullable|array',
-            'images.*' => 'image|max:2048',
         ]);
        
         // Handle image upload
-        $imagePaths[] = $request->images;
-        
-
+        $imagePaths = json_decode($request->images);
+     
         // Create a new instance of the Product model with the validated data
         $product = Product::create($request->all());
 
@@ -56,7 +53,7 @@ class ProductController extends AppBaseController
         // Optionally, you can perform additional actions or return a response here
 
         // Return a success response or redirect
-        return $product;
+        return $this->show($product->id);
     }
 
 

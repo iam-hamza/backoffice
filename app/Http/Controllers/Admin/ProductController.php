@@ -40,13 +40,8 @@ class ProductController extends AppBaseController
         ]);
        
         // Handle image upload
-        $imagePaths = [];
-        if ($request->hasFile('images')) {
-            foreach ($request->images as $image) {
-                $path = Storage::disk('s3')->put('category', $image);
-                $imagePaths[] = Storage::disk('s3')->url($path);   
-            }
-        }
+        $imagePaths[] = $request->images;
+        
 
         // Create a new instance of the Product model with the validated data
         $product = Product::create($request->all());

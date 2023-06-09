@@ -100,7 +100,7 @@ class ProductController extends AppBaseController
 
     public function show($id)
     {
-        return Product::whereId($id)->with('images')->first();
+        return Product::whereId($id)->with(['images','category'])->first();
 
     }
 

@@ -61,7 +61,7 @@ class ResellerProductController extends AppBaseController
             ]);
         }
 
-        ResellerProduct::whereId($request->id)->update([
+        ResellerProduct::whereId($request->reseller_product_id)->update([
             'status' => 1,
         ]);
 

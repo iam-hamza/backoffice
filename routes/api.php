@@ -67,7 +67,13 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
        
     });
  
+    Route::group(['prefix' => 'app'], function () {
+        // /**Roles routes for roles and permission */ 
+        Route::group(['prefix' => '/banners'], function () {
+            Route::get('/', 'MobileApp\BannersController@index');
+        });
 
+    });
 
     Route::group(['middleware' => ['auth:api']], function () {
         // /**Roles routes for roles and permission */ 

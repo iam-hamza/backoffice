@@ -6,6 +6,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Models\Product;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreProductRequest;
+use App\Models\ResellerProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -106,8 +107,13 @@ class ProductController extends AppBaseController
 
     public function updateStatus($id,$status)
     {
-        Product::whereId($id)->update([
+        $product =  Product::findOrFail($id);
+        $product->update([
             'status'=>$status
+        ]);
+        $status = 1 ? $status : $status = 2; 
+        ResellerProduct::whereId($product->reseller_product_id)->update([
+            'status' => $status,
         ]);
 
         return $this->sendSuccess('Updated');

@@ -25,9 +25,9 @@ class BannerController extends AppBaseController
         $input = $request->validated();
         $path = Storage::disk('s3')->put('banner', $request->image);
         $input['image'] = Storage::disk('s3')->url($path);    
-        Banner::create($input);
+        $banner = Banner::create($input);
 
-        return $this->sendSuccess('Added');
+        return $banner;
     }
 
     public function update(UpdateBannerRequest $request, Banner $banner)
@@ -37,7 +37,7 @@ class BannerController extends AppBaseController
         $input['image'] = Storage::disk('s3')->url($path);   
         $banner->update($input);
 
-        return $this->sendSuccess('Updated');
+        return $this->show($banner->id);
     }
 
     public function destroy( Banner $banner)
@@ -45,5 +45,10 @@ class BannerController extends AppBaseController
         $banner->delete();
 
         return $this->sendSuccess('Deleted');
+    }
+
+    public function show($id)
+    {
+        return Banner::findOrFail($id);
     }
 }

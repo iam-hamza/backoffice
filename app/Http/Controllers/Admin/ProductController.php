@@ -12,9 +12,16 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends AppBaseController
 {
-    public function index()
+    public function index(Request $request)
     {
-        return Product::with('images')->get();
+        return Product::when($request->has('name'),function($q) use($request){
+            $q->where('name', 'LIKE', '%' . $request->name . '%');
+            $q->orWhere('sku', 'LIKE', '%' . $request->name . '%');
+        })
+        ->with('images')
+        ->paginate($request->per_page)
+        ->withQueryString();
+        
     }
 
     public function store(Request $request)

@@ -18,6 +18,12 @@ class ProductController extends AppBaseController
             $q->where('name', 'LIKE', '%' . $request->name . '%');
             $q->orWhere('sku', 'LIKE', '%' . $request->name . '%');
         })
+        ->when($request->has('brand'),function($q) use($request){
+            $q->where('brand',$request->brand);
+        })
+        ->when($request->has('category'),function($q) use($request){
+            $q->where('category_id',$request->category);
+        })
         ->with('images')
         ->paginate($request->per_page)
         ->withQueryString();

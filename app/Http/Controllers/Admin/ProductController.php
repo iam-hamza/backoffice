@@ -131,4 +131,18 @@ class ProductController extends AppBaseController
 
         return $this->sendSuccess('Updated');
     }
+
+    public function isShowroom($id)
+    {
+        $product =  Product::findOrFail($id);
+        $product->update([
+            'is_showroom'=>$product->is_showroom==0 ? 1 : 0,
+        ]);
+       
+        // ResellerProduct::whereId($product->reseller_product_id)->update([
+        //     'status' => $status,
+        // ]);
+
+        return $this->sendSuccess('Updated');
+    }
 }

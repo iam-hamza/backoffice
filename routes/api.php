@@ -121,11 +121,13 @@ Route::group(['prefix' => '/v1', 'namespace' => 'Api\V1', 'as' => 'api.'], funct
 
         Route::group(['prefix' => '/product'], function () {
             Route::get('/', [ProductController::class, 'index']);
-            Route::get('/{category}', [ProductController::class, 'show']);
+            Route::get('/{product}', [ProductController::class, 'show']);
             Route::post('/', [ProductController::class, 'store']);
             Route::post('/{id}', [ProductController::class, 'update']);
             Route::delete('/{id}', [ProductController::class, 'destroy']);
             Route::get('update-status/{id}/{status}', [ProductController::class, 'updateStatus']);
+            Route::get('is_showroom/{product}', [ProductController::class, 'isShowroom']);
+
 
 
         });

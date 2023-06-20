@@ -25,7 +25,8 @@ class Product extends Model
         'resaler_price',
         'stock',
         'category_id',
-        'status'
+        'status',
+        'is_showroom'
     ];
 
     const status=[

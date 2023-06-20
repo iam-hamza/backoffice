@@ -20,7 +20,7 @@ class CategoryController extends AppBaseController
      */
     public function index(Request $request)
     {
-            $categories = Category::get();
+            $categories = Category::with('subCategory')->get();
 
 
             return $this->sendSuccess(

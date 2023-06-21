@@ -64,9 +64,8 @@ class ProductController extends AppBaseController
             }, $imagePaths)
         );
 
-        // Optionally, you can perform additional actions or return a response here
-
-        // Return a success response or redirect
+        $product->subcategories()->attach(json_decode($request->subcategory_id));
+      
         return $this->show($product->id);
     }
 
@@ -108,6 +107,8 @@ class ProductController extends AppBaseController
             }, $images)
         );
 
+        $product->subcategories()->sync(json_decode($request->subcategory_id));
+
         // Return a success response or redirect
         return $this->show($id);
     }
@@ -128,6 +129,8 @@ class ProductController extends AppBaseController
         ResellerProduct::whereId($product->reseller_product_id)->update([
             'status' => $status,
         ]);
+
+        
 
         return $this->sendSuccess('Updated');
     }

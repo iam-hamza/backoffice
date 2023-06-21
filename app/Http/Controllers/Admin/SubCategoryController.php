@@ -23,8 +23,9 @@ class SubCategoryController extends AppBaseController
             'category_id' => 'nullable|exists:categories,id',
         ]);
 
-        return SubCategory::create($request->all());
+        $subCategory =  SubCategory::create($request->all());
 
+        return SubCategory::where('category_id',$subCategory->category_id)->get();
         
     }
 
@@ -37,7 +38,7 @@ class SubCategoryController extends AppBaseController
 
         $subcategory->update($request->all());
 
-        return $this->show($subcategory->id);
+        return SubCategory::where('category_id',$subcategory->category_id)->get();
     }
 
     public function show($subcategory)

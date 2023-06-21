@@ -60,6 +60,8 @@ class ResellerProductController extends AppBaseController
                 'image' => $image
             ]);
         }
+        $product->subcategories()->attach(json_decode($request->subcategory_id));
+
 
         ResellerProduct::whereId($request->reseller_product_id)->update([
             'status' => 1,

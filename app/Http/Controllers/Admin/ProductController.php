@@ -24,6 +24,9 @@ class ProductController extends AppBaseController
         ->when($request->has('category'),function($q) use($request){
             $q->where('category_id',$request->category);
         })
+        ->when($request->has('app'),function($q) use($request){
+            $q->where('status',1);
+        })
         ->with(['images','subcategories','category'])
         ->paginate($request->per_page)
         ->withQueryString();

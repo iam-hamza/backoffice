@@ -24,7 +24,7 @@ class ProductController extends AppBaseController
         ->when($request->has('category'),function($q) use($request){
             $q->where('category_id',$request->category);
         })
-        ->with('images')
+        ->with(['images','subcategories','category'])
         ->paginate($request->per_page)
         ->withQueryString();
         
@@ -115,7 +115,7 @@ class ProductController extends AppBaseController
 
     public function show($id)
     {
-        return Product::whereId($id)->with(['images','category'])->first();
+        return Product::whereId($id)->with(['images','category','subcategories'])->first();
 
     }
 

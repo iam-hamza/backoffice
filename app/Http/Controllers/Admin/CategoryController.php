@@ -88,7 +88,7 @@ class CategoryController extends AppBaseController
         $category->update($validatedData);
 
         // Return a success response or redirect
-        return Category::findOrFail($id);
+        return Category::with('subCategory')->whereId($id)->get();
     }
 
     public function destroy($id)

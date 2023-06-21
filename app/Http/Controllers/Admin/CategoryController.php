@@ -47,6 +47,7 @@ class CategoryController extends AppBaseController
             'name' => 'required|string|unique:categories',
             'image' => 'image|max:2048',
             'description' => 'nullable|string',
+            'type'      => 'required',
         ]);
 
         // Handle image upload
@@ -70,6 +71,7 @@ class CategoryController extends AppBaseController
             'name' => 'required|string|unique:categories,name,' . $id,
             'image' => 'nullable|image|max:2048',
             'description' => 'nullable|string',
+            'type'      => 'required',
         ]);
 
         // Find the product by ID

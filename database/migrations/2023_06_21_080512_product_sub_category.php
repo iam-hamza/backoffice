@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ProductSubcategory extends Migration
+class ProductSubCategory extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,16 @@ class ProductSubcategory extends Migration
      */
     public function up()
     {
-        Schema::create('product_subcategory', function (Blueprint $table) {
+        Schema::create('product_sub_category', function (Blueprint $table) {
             $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('subcategory_id');
+            $table->unsignedBigInteger('sub_category_id');
             
             // Add foreign key constraints
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
-            $table->foreign('subcategory_id')->references('id')->on('sub_categories')->onDelete('cascade');
+            $table->foreign('sub_category_id')->references('id')->on('sub_categories')->onDelete('cascade');
             
             // Add primary key constraint
-            $table->primary(['product_id', 'subcategory_id']);
+            $table->primary(['product_id', 'sub_category_id']);
         });
     }
 

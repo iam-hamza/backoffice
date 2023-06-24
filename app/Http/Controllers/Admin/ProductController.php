@@ -21,8 +21,18 @@ class ProductController extends AppBaseController
         ->when($request->has('brand'),function($q) use($request){
             $q->where('brand',$request->brand);
         })
-        ->when($request->has('category'),function($q) use($request){
-            $q->where('category_id',$request->category);
+        ->when($request->has('type'),function($q) use($request){
+            $q->whereHas('category', function($q) use($request){
+                $q->where('type', $request->type);
+            })
+            ->when($request->has('category'),function($q) use($request){
+                $q->where('category_id',$request->category);
+            })
+            ->when($request->has('subcategory'),function($q) use($request){
+                $q->whereHas('subcategories', function($q) use($request){
+                    $q->where('sub_category_id', $request->subcategory);
+                });
+            });
         })
         ->when($request->has('app'),function($q) use($request){
             $q->where('status',1);

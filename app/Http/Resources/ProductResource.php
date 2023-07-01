@@ -26,7 +26,7 @@ class ProductResource extends JsonResource
             'price' => @$this->price,
             'discount_price' => @$this->discount_price,
             'stock' => @$this->stock,
-            'category_id' => @$this->category->name,
+            'category' => @$this->category->name,
             'images' => ProductImagesResource::collection($this->whenLoaded('images')),
             'sub_category' => ProductSubCategoryResource::collection($this->whenLoaded('subcategories')),
 

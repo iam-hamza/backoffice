@@ -24,7 +24,7 @@ class SingleProductResource extends JsonResource
             'stock' => $this->stock,
             'price' => $this->price,
             'name' => $this->name,
-            'sizes' => json_decode($this->sizes),
+            'sizes' => json_decode(str_replace("'", '"',$this->sizes)),
             'sku' => $this->sku,
             'slug' => $this->slug,
             'currency' => $this->currency,

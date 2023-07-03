@@ -20,7 +20,7 @@ class ResellerProducrReseource extends ResourceCollection
                     'stock' => $item->stock,
                     'price' => $item->price,
                     'name' => $item->name,
-                    'sizes' => json_decode(str_replace("'", '"',$this->sizes)),
+                    'sizes' => json_decode(str_replace("'", '"',$item->sizes)),
                     'sku' => $item->sku,
                     'slug' => $item->slug,
                     'currency' => $item->currency,

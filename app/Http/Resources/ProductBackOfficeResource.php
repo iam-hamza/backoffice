@@ -37,6 +37,9 @@ class ProductBackOfficeResource extends JsonResource
             'updated_at' => $this->updated_at,
             'status' => $this->status,
             'is_showroom' => $this->is_showroom,
+            'category' => $this->category,
+            'sub_category'  => $this->subcategories,
+            'images'    => $this->images,
             // 'pagination' => [
             //     'total' => @$this->total(),
             //     'per_page' => @$this->perPage(),

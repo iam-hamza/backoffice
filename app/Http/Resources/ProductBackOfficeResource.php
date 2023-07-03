@@ -20,7 +20,7 @@ class ProductBackOfficeResource extends JsonResource
             'name' => $this->name,
             'description' => $this->description,
             'brand' => $this->brand,
-            'sizes' => json_decode($this->sizes),
+            'sizes' => json_decode(str_replace("'", '"',$this->sizes)),
             'sku' => $this->sku,
             'product_tag' => json_decode($this->product_tag),
             'slug' => $this->slug,
@@ -37,14 +37,14 @@ class ProductBackOfficeResource extends JsonResource
             'updated_at' => $this->updated_at,
             'status' => $this->status,
             'is_showroom' => $this->is_showroom,
-            'pagination' => [
-                'total' => @$this->total(),
-                'per_page' => @$this->perPage(),
-                'current_page' => @$this->currentPage(),
-                'last_page' => @$this->lastPage(),
-                'from' => @$this->firstItem(),
-                'to' => @$this->lastItem(),
-            ],
+            // 'pagination' => [
+            //     'total' => @$this->total(),
+            //     'per_page' => @$this->perPage(),
+            //     'current_page' => @$this->currentPage(),
+            //     'last_page' => @$this->lastPage(),
+            //     'from' => @$this->firstItem(),
+            //     'to' => @$this->lastItem(),
+            // ],
         ];
         
     }

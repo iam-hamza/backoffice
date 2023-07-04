@@ -16,7 +16,9 @@ class ProductController extends AppBaseController
     public function index(Request $request)
     {
         return ProductBackOfficeResource::collection(
-            Product::where('status',1)
+            Product::when($request->has('app'),function($q) use($request){
+                $q->where('status',1);
+            })
             ->when($request->has('name'),function($q) use($request){
                 $q->where('name', 'LIKE', '%' . $request->name . '%');
                 $q->orWhere('sku', 'LIKE', '%' . $request->name . '%');
@@ -37,7 +39,6 @@ class ProductController extends AppBaseController
                     });
                 });
             })
-            
             ->with(['images','subcategories','category'])
             ->paginate($request->per_page)
             ->withQueryString()

@@ -36,9 +36,7 @@ class ProductController extends AppBaseController
                     });
                 });
             })
-            ->when($request->has('app'),function($q) use($request){
-                $q->where('status',1);
-            })
+            ->where('status',1)
             ->with(['images','subcategories','category'])
             ->paginate($request->per_page)
             ->withQueryString()
@@ -131,7 +129,7 @@ class ProductController extends AppBaseController
 
     public function show($id)
     {
-        return Product::whereId($id)->with(['images','category','subcategories'])->first();
+        return ProductBackOfficeResource::make(Product::whereId($id)->with(['images','category','subcategories'])->first());
 
     }
 

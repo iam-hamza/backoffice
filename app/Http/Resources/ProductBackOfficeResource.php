@@ -39,7 +39,7 @@ class ProductBackOfficeResource extends JsonResource
             'is_showroom' => $this->is_showroom,
             'category' => $this->category,
             'sub_category'  => $this->subcategories,
-            'images'    => $this->images,
+            'displayImages'    => $this->images,
             // 'pagination' => [
             //     'total' => @$this->total(),
             //     'per_page' => @$this->perPage(),
